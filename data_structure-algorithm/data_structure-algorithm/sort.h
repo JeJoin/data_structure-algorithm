@@ -115,15 +115,17 @@ void MergeSortBU(T* arr, int n)
     }
 }
 
+// 这种快速排序的方式当数组近乎有序是 排序情况最差
+// 所以随机选择一个标定元素，该排序的期望值为nlogn
+// 这个快速排序加上随机算法在近乎有序的数组也可以正常运行
+// 但是如果该数组中有大量重复的元素也会退化成On^2
 template <typename T>
-void _QuickSort(T* arr, int l, int r)
+int _Partition(T* arr, int l, int r)
 {
-    if (r <= l) {
-        return;
-    }
+    swap(arr[l], arr[rand() % (r - l + 1) + l]);
 
-    T tmp = arr[l];
     int j = l;
+    T tmp = arr[l];
     for (int i = l + 1; i <= r; i++) {
         if (arr[i] < tmp) {
             swap(arr[j + 1], arr[i]);
@@ -131,15 +133,54 @@ void _QuickSort(T* arr, int l, int r)
         }
     }
     swap(arr[j], arr[l]);
-    _QuickSort(arr, l, j-1);
-    _QuickSort(arr, j+1, r);
+    return j;
 }
 
 template <typename T>
+void _QuickSort(T* arr, int l, int r)
+{
+    if (r <= l) {
+        return;
+    }
+    int p = _Partition(arr, l, r);
+    _QuickSort(arr, l, p-1);
+    _QuickSort(arr, p+1, r);
+}
+
+// 常规的快速排序，以第一个元素作为标准
+template <typename T>
 void QuickSort(T* arr, int n)
 {
+    srand(time(NULL));
     _QuickSort(arr, 0, n - 1);
 }
 
+template <typename T>
+int _Partition2(T* arr, int l, int r)
+{
+    swap(arr[l], arr[rand() % (r - l + 1) + l]);
+
+    T tmp = arr[l];
+    int j = l;
+    return j;
+}
+
+template <typename T>
+void _QuickSort2(T* arr, int l, int r)
+{
+    if (r <= l) {
+        return;
+    }
+    int p = _Partition2(arr, l, r);
+    _QuickSort2(arr, l, p-1);
+    _QuickSort2(arr, p+1, r);
+}
+
+template <typename T>
+void QuickSort2(T* arr, int n)
+{
+    srand(time(NULL));
+    _QuickSort(arr, 0, n - 1);
+}
 }
 #endif // SORT_H
