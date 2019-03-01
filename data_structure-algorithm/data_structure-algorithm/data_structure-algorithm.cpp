@@ -24,18 +24,20 @@ void sellsort(int *arr, int n)
 int main()
 {
     int n = 1000000;
-    int *arr = common::GetRandomArr(n, 0, 10);
+    int *arr = common::GetRandomArr(n, 0, 100);
     int *arr1 = common::CopyArr(arr, n);
     int *arr2 = common::CopyArr(arr, n);
     int *arr3 = common::CopyArr(arr, n);
 
+    //common::TestSort("BubbleSot", sort::BubbleSot, arr, n);
     //common::TestSort("SeletctionSort", sort::SelectSort, arr, n);
     //common::TestSort("InsertSort", sort::InsertSort, arr1, n);
     //common::TestSort("ShellSort", sort::ShellSort, arr2, n);
     //common::TestSort("ShellSort", sellsort, arr2, n);
-    common::TestSort("MergeSort", sort::MergeSort, arr3, n);
-    common::TestSort("QuickSort", sort::QuickSort, arr2, n);
+    //common::TestSort("MergeSort", sort::MergeSort, arr3, n);
+    //common::TestSort("QuickSort", sort::QuickSort, arr2, n);
     //common::TestSort("QuickSort2", sort::QuickSort2, arr1, n);
+    common::TestSort("QuickSort3", sort::QuickSort3, arr, n);
 
     delete[] arr;
     delete[] arr1;
