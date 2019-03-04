@@ -64,10 +64,9 @@ T* CopyArr(T* arr, int n)
     return retArr;
 }
 
-template <typename T>
-T* CreateNearOrderArr(int n, int revers)
+int* CreateNearOrderArr(int n, int revers)
 {
-    T* arr = new T[n];
+    int* arr = new int[n];
     for(int i = 0; i < n; i++) {
         arr[i] = i;
     }
@@ -77,6 +76,8 @@ T* CreateNearOrderArr(int n, int revers)
        int y = rand()%n;
        std::swap(arr[x], arr[y]);
     }
+
+    return arr;
 }
 
 } // namespace common
