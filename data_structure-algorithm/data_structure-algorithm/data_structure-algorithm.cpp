@@ -6,7 +6,7 @@
 #include "MaxHeap.hpp"
 
 void testSort() {
-    int n = 100000;
+    int n = 200000;
     int *arr = common::GetRandomArr(n, 0, 100);
     int *arr1 = common::CopyArr(arr, n);
     int *arr2 = common::CopyArr(arr, n);
@@ -27,6 +27,7 @@ void testSort() {
     common::TestSort("QuickSort3", sort::QuickSort3, arr3, n);
     common::TestSort("HeapSort", sort::HeapSort, arr4, n);
     common::TestSort("HeapSort1", sort::HeapSort1, arr2, n);
+    common::TestSort("HeapSort2", sort::HeapSort2, arr1, n);
 
     delete[] arr;
     delete[] arr1;
@@ -48,6 +49,7 @@ void testSort() {
     common::TestSort("QuickSort3", sort::QuickSort3, arr3, n);
     common::TestSort("HeapSort", sort::HeapSort, arr4, n);
     common::TestSort("HeapSort1", sort::HeapSort1, arr2, n);
+    common::TestSort("HeapSort2", sort::HeapSort2, arr1, n);
 
     delete[] arr;
     delete[] arr1;
@@ -57,10 +59,10 @@ void testSort() {
 }
 
 void testMaxHeap() {
-    MaxHeap<int> heap(100000);
+    MaxHeap<int> heap(100);
 
     srand(time(NULL));
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 15; i++) {
         heap.insert(rand() % 100);
     }
 

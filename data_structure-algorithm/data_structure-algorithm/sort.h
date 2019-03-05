@@ -298,5 +298,36 @@ namespace sort {
             arr[i] = heap.extractMax();
         }
     }
+
+    template <typename T>
+    void _ShifyDown(T* arr, int n, int position) {
+        while (2 * position + 1 < n) {
+            int p = position * 2 + 1;
+            if (p + 1 < n && arr[p] < arr[p + 1]) {
+                p++;
+            }
+
+            if (arr[position] >= arr[p]) {
+                break;
+            }
+
+            std::swap(arr[position], arr[p]);
+            position = p;
+        }
+    }
+
+    template <typename T>
+    void HeapSort2(T* arr, int n) {
+        // heapify
+        for (int i = (n - 1) / 2; i >= 0; i--) {
+            _ShifyDown(arr, n, i);
+        }
+
+        // 堆只剩1个时不需交换
+        for (int i = n - 1; i > 0; i--) {
+            std::swap(arr[0], arr[i]);
+            _ShifyDown(arr, i, 0);
+        }
+    }
 }
 #endif // SORT_H
