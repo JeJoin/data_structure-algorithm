@@ -62,7 +62,7 @@ private:
     void shiftUp(int position) {
 #if 0
         int p = position / 2;
-        if (p > 1 && m_elements[p] < m_elements[position]) {
+        if (position > 1 && m_elements[p] < m_elements[position]) {
             std::swap(m_elements[p], m_elements[position]);
             shiftUp(p);
         }
