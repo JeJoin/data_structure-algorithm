@@ -8,10 +8,7 @@ public:
         m_elements = new T[capacity + 1];
         m_indexes = new int[capacity + 1];
         m_reverse = new int[capacity + 1];
-        //memset(m_reverse, 0, sizeof(int)*(capacity + 1));
-        for (int i = 0; i < capacity + 1; i++) {
-            m_reverse[i] = 0;
-        }
+        memset(m_reverse, 0, sizeof(int)*(capacity + 1));
         
         m_capacity = capacity;
         m_size = 0;
@@ -19,9 +16,9 @@ public:
 
     MaxIndexHeap(T* arr, int n) {
         m_elements = new T[n + 1];
-        m_indexes = new int[capacity + 1];
-        m_reverse = new int[capacity + 1];
-        memset(m_reverse, 0, sizeof(int)*(capacity + 1));
+        m_indexes = new int[n + 1];
+        m_reverse = new int[n + 1];
+        memset(m_reverse, 0, sizeof(int)*(n + 1));
         m_capacity = n;
 
         for (int i = 0; i < n; i++) {
