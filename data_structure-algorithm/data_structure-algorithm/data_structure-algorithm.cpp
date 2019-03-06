@@ -4,6 +4,7 @@
 #include "sort.h"
 #include "common.h"
 #include "MaxHeap.hpp"
+#include "MaxIndexHeap.hpp"
 
 void testSort() {
     int n = 200000;
@@ -59,6 +60,7 @@ void testSort() {
 }
 
 void testMaxHeap() {
+#if 0
     MaxHeap<int> heap(100);
 
     srand(time(NULL));
@@ -72,13 +74,37 @@ void testMaxHeap() {
     while (!heap.isEmpty()) {
         cout << heap.extractMax() << " ";
     }
+#else
+    MaxIndexHeap<int> heap(100);
+
+    srand(time(NULL));
+    cout << "============ before change =============" << endl;
+    for (int i = 0; i < 15; i++) {
+        heap.insert(i, rand() % 100);
+    }
+    heap.testPrint();
+    heap.change(0, 99);
+
+    cout << "============ after change =============" << endl;
+    heap.testPrint();
+
+    cout << "extract max: ";
+    while (!heap.isEmpty()) {
+        cout << heap.extractMax() << " ";
+    }
+
+    cout << endl;
+
+    heap.testPrint();
+
+#endif
 
 }
 
 int main()
 {
-    testSort();
-    //testMaxHeap();
+    //testSort();
+    testMaxHeap();
     system("pause");
     return 0;
 }
