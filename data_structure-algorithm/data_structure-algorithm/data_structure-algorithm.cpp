@@ -3,6 +3,7 @@
 
 #include "sort.h"
 #include "common.h"
+#include "search.h"
 #include "MaxHeap.hpp"
 #include "MaxIndexHeap.hpp"
 
@@ -60,7 +61,6 @@ void testSort() {
 }
 
 void testMaxHeap() {
-#if 0
     MaxHeap<int> heap(100);
 
     srand(time(NULL));
@@ -74,7 +74,9 @@ void testMaxHeap() {
     while (!heap.isEmpty()) {
         cout << heap.extractMax() << " ";
     }
-#else
+}
+
+void testMaxIndexHeap() {
     MaxIndexHeap<int> heap(100);
 
     srand(time(NULL));
@@ -96,15 +98,25 @@ void testMaxHeap() {
     cout << endl;
 
     heap.testPrint();
+}
 
-#endif
+void testSearch() {
+    int n = 10;
+    int search = 5;
+    int* arr = common::GetRandomArr(n, 0, n);
+    sort::QuickSort3(arr, n);
+    common::PrintArr(arr, n);
 
+    cout << "search[ " << search << " ]: " << search::BinarySearch(arr, n, search) << endl;
+    cout << "search[ " << search << " ]: " << search::BinarySearch(arr, 0, n-1, search) << endl;
 }
 
 int main()
 {
     //testSort();
-    testMaxHeap();
+    //testMaxHeap();
+    //testMaxIndexHeap();
+    testSearch();
     system("pause");
     return 0;
 }

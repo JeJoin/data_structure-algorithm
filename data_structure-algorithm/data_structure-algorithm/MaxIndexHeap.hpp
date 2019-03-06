@@ -1,5 +1,11 @@
-
 #include <common.h>
+
+/* 待实现
+ 
+ * Shift Up和Shift Down用赋值取代交换
+ * 堆索引从0开始
+ * 动态调整退数组的大小
+ */
 
 template <typename T>
 class MaxIndexHeap {
@@ -60,7 +66,7 @@ public:
     T indexOf(int i) {
         assert(isContain(i));
 
-        return m_elements[m_indexes[idx + 1]];
+        return m_elements[m_indexes[i + 1]];
     }
 
     void change(int i, T data) {
@@ -215,8 +221,8 @@ private:
 
 private:
     T * m_elements;
-    T * m_indexes;
-    T * m_reverse;
+    T * m_indexes;  // 存放者elements中数据的下标
+    T * m_reverse;  // 存放着i下标在indexes堆中的下标
     int m_size;
     int m_capacity;
 };
