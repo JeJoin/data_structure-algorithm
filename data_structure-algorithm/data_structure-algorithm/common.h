@@ -2,9 +2,15 @@
 #define COMMON_H
 
 #include <time.h>
+#include <cassert>
 #include <assert.h>
 #include <iostream>
 #include <string>
+#include <vector>
+#include <string>
+#include <fstream>
+
+using namespace std;
 
 namespace common
 {

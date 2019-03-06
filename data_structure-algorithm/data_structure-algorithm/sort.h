@@ -1,5 +1,5 @@
-#ifndef SORT_H
-#define SORT_H
+#ifndef __SORT_H__
+#define __SORT_H__
 
 #include <algorithm>
 //#include <MaxHeap.hpp>
@@ -330,4 +330,4 @@ namespace sort {
         }
     }
 }
-#endif // SORT_H
+#endif // __SORT_H__

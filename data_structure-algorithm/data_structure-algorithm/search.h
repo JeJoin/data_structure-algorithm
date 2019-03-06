@@ -1,3 +1,6 @@
+#ifndef __SEARCH_H__
+#define __SEARCH_H__
+
 #include <common.h>
 
 using namespace common;
@@ -53,3 +56,5 @@ namespace search {
         }
     }
 } // namespace sort
+
+#endif // !__SEARCH_H__

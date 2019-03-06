@@ -6,6 +6,9 @@
 #include "search.h"
 #include "MaxHeap.hpp"
 #include "MaxIndexHeap.hpp"
+#include "BST.hpp"
+#include "3rd/FileOps.h"
+#include "3rd/SequenceST.h"
 
 void testSort() {
     int n = 200000;
@@ -100,7 +103,7 @@ void testMaxIndexHeap() {
     heap.testPrint();
 }
 
-void testSearch() {
+void testBinarySearch() {
     int n = 10;
     int search = 5;
     int* arr = common::GetRandomArr(n, 0, n);
@@ -111,12 +114,69 @@ void testSearch() {
     cout << "search[ " << search << " ]: " << search::BinarySearch(arr, 0, n-1, search) << endl;
 }
 
+void testBST() {
+    string filename = "MoonAndSixpence.txt";
+    vector<string> words;
+    if (FileOps::readFile(filename, words)) {
+
+        cout << "There are totally " << words.size() << " words in " << filename << endl;
+
+        cout << endl;
+
+        // test BST
+        string target = "strickland";
+        time_t startTime = clock();
+        BST<string, int> bst = BST<string, int>();
+        for (vector<string>::iterator iter = words.begin(); iter != words.end(); ++iter) {
+            int *res = bst.search(*iter);
+            if (res == NULL)
+                bst.insert(*iter, 1);
+            else
+                (*res)++;
+        }
+
+        if (!bst.contain(target)) {
+            cout << "BST doesn't have "<< target << endl;
+            return;
+        }
+
+        cout << "[ " << target << " ]: " << *bst.search(target) << endl;
+        time_t endTime = clock();
+        cout << "BST , time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " s." << endl;
+
+        cout << endl;
+
+
+        // test SST
+        startTime = clock();
+        SequenceST<string, int> sst = SequenceST<string, int>();
+        for (vector<string>::iterator iter = words.begin(); iter != words.end(); iter++) {
+            int *res = sst.search(*iter);
+            if (res == NULL)
+                sst.insert(*iter, 1);
+            else
+                (*res)++;
+        }
+
+        cout << "[ " << target << " ]: " << *sst.search(target) << endl;
+
+        endTime = clock();
+        cout << "SST , time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " s." << endl;
+
+
+        // sort
+        bst.inOrder();
+        cout << endl;
+    }
+}
+
 int main()
 {
     //testSort();
     //testMaxHeap();
     //testMaxIndexHeap();
-    testSearch();
+    //testBinarySearch();
+    testBST();
     system("pause");
     return 0;
 }
