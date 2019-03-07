@@ -120,9 +120,7 @@ void testBST() {
     if (FileOps::readFile(filename, words)) {
 
         cout << "There are totally " << words.size() << " words in " << filename << endl;
-
         cout << endl;
-
         // test BST
         string target = "strickland";
         time_t startTime = clock();
@@ -165,8 +163,43 @@ void testBST() {
 
 
         // sort
+       // =============================== sort =================================
         bst.inOrder();
         cout << endl;
+        cout << endl;
+
+        // remove max
+        // =========================== remove max ==============================
+        string maxKey = bst.maximun();
+        cout << "bst max key is " << maxKey << endl;
+        bst.removeMax();
+        if (bst.contain(target)) {
+            cout << "bst has max key[ " << maxKey << " ]" << endl;
+        } else {
+            cout << "bst doesn't have max key[ " << maxKey << " ]" << endl;
+        }
+        cout << endl;
+
+        // remove min
+        // =========================== remove min ==============================
+        string minKey = bst.minimun();
+        cout << "bst min key is " << minKey << endl;
+        bst.removeMin();
+        if (bst.contain(minKey)) {
+            cout << "bst has min key[ " << minKey << " ]" << endl;
+        } else {
+            cout << "bst doesn't have min key[ " << minKey << " ]" << endl;
+        };
+        cout << endl;
+
+        // remove any key
+        // ========================= remove any key ============================
+        bst.remove(target);
+        if (bst.contain(target)) {
+            cout << "bst has key[ " << target << " ]" << endl;
+        } else {
+            cout << "bst doesn't have key[ " << target << " ]" << endl;
+        }
     }
 }
 

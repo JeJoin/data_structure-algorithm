@@ -18,6 +18,13 @@ private:
             this->value = value;
             left = right = NULL;
         }
+
+        Node(Node* node) {
+            key = node->key;
+            value = node->value;
+            left = node->left;
+            right = node->right;
+        }
     };
 
     Node * m_root;
@@ -65,6 +72,43 @@ public:
 #endif
     }
 
+    Key maximun() {
+        assert(!isEmpty());
+
+        Node* root = m_root;
+        while (root->right != NULL) {
+            root = root->right;
+        }
+
+        return root->key;
+    }
+
+    Key minimun() {
+        assert(!isEmpty());
+
+        Node* root = m_root;
+        while (root->left != NULL) {
+            root = root->left;
+        }
+
+        return root->key;
+    }
+
+    void removeMin() {
+        assert(!isEmpty());
+        m_root = removeMin(m_root);
+    }
+
+    void removeMax() {
+        assert(!isEmpty());
+        m_root = removeMax(m_root);
+    }
+
+    void remove(Key key) {
+        assert(!isEmpty());
+        m_root = remove(m_root, key);
+    }
+
     // 前序遍历
     void preOrder() {
         preOrder(m_root);
@@ -105,48 +149,6 @@ private:
         return node;
     }
 
-    bool contain(Node* node, Key key) {
-        if (node == NULL) {
-            return false;
-        }
-        if (node->key == key) {
-            return true;
-        } else if (node->key > key) {
-            return contain(node->left, key);
-        } else {
-            return contain(node->right, key);
-        }
-    }
-
-    Value* search(Node* node, Key key) {
-        if (node == NULL) {
-            return NULL;
-        }
-
-        if (node->key == key) {
-            return &node->value;
-        } else if (node->key > key) {
-            return search(node->left, key);
-        } else {
-            return search(node->right, key);
-        }
-    }
-
-    bool containNonRecursion(Key key) {
-
-        Node *root = m_root;
-        while (root != NULL) {
-            if (root->key == key) {
-                return true;
-            } else if (root->key < key) {
-                root = root->right;
-            } else { // root->key > key
-                root = root->left;
-            }
-        }
-        return false;
-    }
-
     void insertNonRecursion(Key key, Value value) {
 
         if (m_root == NULL) {
@@ -176,6 +178,48 @@ private:
         }
     }
 
+    bool contain(Node* node, Key key) {
+        if (node == NULL) {
+            return false;
+        }
+        if (node->key == key) {
+            return true;
+        } else if (node->key > key) {
+            return contain(node->left, key);
+        } else {
+            return contain(node->right, key);
+        }
+    }
+
+    bool containNonRecursion(Key key) {
+
+        Node *root = m_root;
+        while (root != NULL) {
+            if (root->key == key) {
+                return true;
+            } else if (root->key < key) {
+                root = root->right;
+            } else { // root->key > key
+                root = root->left;
+            }
+        }
+        return false;
+    }
+
+    Value* search(Node* node, Key key) {
+        if (node == NULL) {
+            return NULL;
+        }
+
+        if (node->key == key) {
+            return &node->value;
+        } else if (node->key > key) {
+            return search(node->left, key);
+        } else {
+            return search(node->right, key);
+        }
+    }
+
     Value* searchNonRecursion(Key key) {
         Node *root = m_root;
         while (root != NULL) {
@@ -188,6 +232,95 @@ private:
             }
         }
         return NULL;
+    }
+
+    // 返回以node为根的子树最小的节点
+    Node* minimun(Node* node) {
+        if (node == NULL) {
+            return NULL;
+        }
+
+        if (node->left == NULL) {
+            return node;
+        }
+
+        return minimun(node->left);
+    }
+
+    // 移除以node为根的子树最小节点
+    // 返回移除最小节点后的根
+    Node* removeMin(Node* node) {
+        if (node == NULL) {
+            return node;
+        }
+
+        if (node->left != NULL) {
+            node->left = removeMin(node->left);
+            return node;
+        }
+
+        Node* r = node->right;
+        delete node;
+        m_count--;
+        return r;
+    }
+
+    // 移除以node为根的子树最大节点
+    // 返回移除最大节点后的根
+    Node* removeMax(Node* node) {
+        if (node == NULL) {
+            return node;
+        }
+
+        if (node->right != NULL) {
+            node->right = removeMax(node->right);
+            return node;
+        }
+
+        Node* r = node->left;
+        delete node;
+        m_count--;
+        return r;
+    }
+
+    // 移除以node为根的子树键值为key的节点
+    // 返回移除该节点之后子树的根
+    Node* remove(Node* node, Key key) {
+        if (node == NULL) {
+            return NULL;
+        }
+
+        if (node->key > key) {
+            node->left = remove(node->left, key);
+            return node;
+        } else if (node->key < key) {
+            node->right = remove(node->right, key);
+            return node;
+        } else { // node->key == key
+            if (node->left == NULL) {
+                Node* r = node->right;
+                delete node;
+                m_count--;
+                return r;
+            } 
+
+            if (node->right == NULL) {
+                Node* l = node->left;
+                delete node;
+                m_count--;
+                return l;
+            }
+
+            // node->right != NULL && node->left != NULL
+            Node* successor = new Node(minimun(node->right));
+            m_count++;
+            Node* rightNode = removeMin(node->right);
+            successor->left = node->left;
+            successor->right = rightNode;
+            delete node;
+            m_count--;
+            return successor;
+        }
     }
 
     // 本质就是后序遍历
