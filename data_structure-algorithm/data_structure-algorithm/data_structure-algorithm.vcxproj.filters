@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="sort.h" />
+    <ClInclude Include="MaxHeap.hpp">
+      <Filter>heap</Filter>
+    </ClInclude>
+    <ClInclude Include="MaxIndexHeap.hpp">
+      <Filter>heap</Filter>
+    </ClInclude>
+    <ClInclude Include="search.h" />
+    <ClInclude Include="BST.hpp" />
+    <ClInclude Include="3rd\SequenceST.h">
+      <Filter>3rd</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\FileOps.h">
+      <Filter>3rd</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="heap">
+      <UniqueIdentifier>{aac01c81-1f43-43ef-91f2-5297fb173ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd">
+      <UniqueIdentifier>{aff493c8-71ef-4ea3-8653-3c7b3f6610cc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+  </ItemGroup>
+</Project>
