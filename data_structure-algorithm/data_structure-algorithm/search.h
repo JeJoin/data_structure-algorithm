@@ -27,7 +27,7 @@ namespace search {
             }
             if (arr[mid] < target) {
                 l = mid + 1;
-            } else if (arr[l + mid] > target) {
+            } else if (arr[mid] > target) {
                 r = mid - 1;
             }
             mid = l + (r - l) / 2;
@@ -49,9 +49,9 @@ namespace search {
             return mid;
         }
 
-        if (arr[l + mid] > target) {
+        if (arr[mid] > target) {
             return BinarySearch(arr, l, mid - 1, target);
-        } else if(arr[l + mid] <target) {
+        } else if(arr[ mid] <target) {
             return BinarySearch(arr, mid + 1, r, target);
         }
     }

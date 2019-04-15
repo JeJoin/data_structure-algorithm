@@ -89,6 +89,7 @@ namespace sort {
     // 将arr[l, mid]和arr[mid+1, r]进行合并
     template <typename T>
     void _Merge(T* arr, int l, int mid, int r) {
+
         T* aux = new T[r - l + 1];
         for (int i = l; i <= r; i++) {
             aux[i - l] = arr[i];
@@ -113,6 +114,39 @@ namespace sort {
         delete[] aux;
     }
 
+    template <typename T>
+    void _Merge1(T* arr, int l, int mid, int r) {
+        int auxsize = r - l + 1;
+        int * aux = new T[auxsize];
+        for (int i = 0; i < auxsize; i++) {
+            aux[i] = arr[l + i];
+        }
+
+        int i = l;
+        int j = mid + 1;
+
+        for (int k = l; k <= r; k++) {
+            if (i > mid ) {
+                arr[k] = aux[j - l];
+                j++;
+            } else if (j > r) {
+                arr[k] = aux[i - l];
+                i++;
+            } else if (aux[i - l] > aux[j - l]) {
+                arr[k] = aux[j - l];
+                j++;
+            } else if (aux[i - l] < aux[j - l]) {
+                arr[k] = aux[i - l];
+                i++;
+            } else {
+                arr[k++] = aux[i - l];
+                arr[k] = aux[j - l];
+                i++;
+                j++;
+            }
+
+        }
+    }
     // 对于arr[l, r]进行归并排序;l,r是闭区间
     template <typename T>
     void _MergeSort(T* arr, int l, int r) {
@@ -128,7 +162,7 @@ namespace sort {
         int mid = (r + l) / 2;
         _MergeSort(arr, l, mid);
         _MergeSort(arr, mid + 1, r);
-        _Merge(arr, l, mid, r);
+        _Merge1(arr, l, mid, r);
     }
 
     template <typename T>

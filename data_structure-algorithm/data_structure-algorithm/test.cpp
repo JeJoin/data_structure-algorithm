@@ -205,11 +205,11 @@ void testBST() {
 
 int main()
 {
-    //testSort();
+    testSort();
     //testMaxHeap();
     //testMaxIndexHeap();
     //testBinarySearch();
-    testBST();
+    //testBST();
     system("pause");
     return 0;
 }
