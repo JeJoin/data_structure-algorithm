@@ -2,7 +2,7 @@
 #define __SORT_H__
 
 #include <algorithm>
-//#include <MaxHeap.hpp>
+#include <MaxHeap.hpp>
 template <typename T>
 class MaxHeap;
 using namespace std;
@@ -23,7 +23,7 @@ namespace sort {
     }
 
     template <typename T>
-    void BubbleSot(T* arr, int n) {
+    void BubbleSort(T* arr, int n) {
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < n - i; j++) {
                 if (arr[j] > arr[j + 1]) {

@@ -11,7 +11,7 @@
 #include "3rd/SequenceST.h"
 
 void testSort() {
-    int n = 200000;
+    int n = 2000000;
     int *arr = common::GetRandomArr(n, 0, 100);
     int *arr1 = common::CopyArr(arr, n);
     int *arr2 = common::CopyArr(arr, n);
