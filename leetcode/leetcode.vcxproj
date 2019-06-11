@@ -118,7 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="leetcode1-10.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="primary_algorithms_array.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
