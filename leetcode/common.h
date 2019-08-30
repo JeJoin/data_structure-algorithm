@@ -12,6 +12,8 @@ using namespace std;
 
 #define OPTIMIZE 1
 
-#define PRIMARY_ALGORITHMS_ARRAY 1
+#define PRIMARY_ALGORITHMS_ARRAY 0
+#define PRIMARY_ALGORITHMS_STRING 0
+#define PRIMARY_ALGORITHMS_TREE 1
 
 #endif // !__COMMON_H__

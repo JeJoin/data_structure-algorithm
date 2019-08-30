@@ -81,9 +81,9 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);</AdditionalIncludeDirectories>
     </ClCompile>
@@ -119,6 +119,8 @@
   <ItemGroup>
     <ClCompile Include="leetcode1-10.cpp" />
     <ClCompile Include="primary_algorithms_array.cpp" />
+    <ClCompile Include="primary_algorithms_string.cpp" />
+    <ClCompile Include="primary_algorithms_tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
