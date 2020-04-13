@@ -117,7 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="leetcode1-10.cpp" />
+    <ClCompile Include="algorithms_thread.cpp" />
     <ClCompile Include="primary_algorithms_array.cpp" />
     <ClCompile Include="primary_algorithms_string.cpp" />
     <ClCompile Include="primary_algorithms_tree.cpp" />

@@ -47,6 +47,30 @@ void testRemoveDuplicates()
 	cout << "nums size: " << removeDuplicates(nums) << endl;
 }
 
+/*给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。*/
+int maxProfit(vector<int>& prices)
+{
+    if (prices.size() <= 1) {
+        return 0;
+    }
+
+    int max = 0;
+    for (int i = 0; i < prices.size() - 1; ++i) {
+        if (prices[i] < prices[i + 1]) {
+            max += prices[i + 1] - prices[i];
+        }
+    }
+    return max;
+}
+
+void testMaxProfit()
+{
+    vector<int> prices = { 7,1,5,3,6,4 };
+    cout << maxProfit(prices) << endl;
+}
+
 /*给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数*/
 void rotate(vector<int>& nums, int k)
 {
@@ -259,15 +283,95 @@ void testMoveZeroes()
 	moveZeroes(nums1);
 	displayArr(nums1);
 }
+
+void displayMatrix(vector<vector<int>> & matrix)
+{
+    for (auto i : matrix) {
+        for (auto j : i) {
+            cout << j << " ";
+        }
+        cout << endl;
+    }
+}
+
+/*给定一个 n × n 的二维矩阵表示一个图像。
+将图像顺时针旋转 90 度。*/
+void rotateEdge(vector<vector<int>> & m, int topRow, int topCol, int lowRow, int lowCol)
+{
+    //每一条边都要进行times次交换
+    int times = lowCol - topCol;
+    int tmp = 0;
+    /**
+     * 上边框:m[topRow][topCol + i]
+     * 右边框:m[topRow + i][lowCol]
+     * 下边框:m[lowRow][lowCol - i]
+     * 左边框:m[lowRow - i][topCol]
+     */
+    for (int i = 0; i != times; i++) {
+        tmp = m[topRow][topCol + i];
+        m[topRow][topCol + i] = m[lowRow - i][topCol];
+        m[lowRow - i][topCol] = m[lowRow][lowCol - i];
+        m[lowRow][lowCol - i] = m[topRow + i][lowCol];
+        m[topRow + i][lowCol] = tmp;
+    }
+}
+
+void rotate(vector<vector<int>>& matrix)
+{
+#if 0
+    int topRow = 0;
+    int topCol = 0;
+    int lowRow = matrix.size()- 1;
+    int lowCol = matrix[0].size()- 1;
+    while (topRow < lowRow) {
+        rotateEdge(matrix, topRow++, topCol++, lowRow--, lowCol--);
+    }
+#else 
+    int n = matrix.size();
+    int tmp;
+    for (size_t i = 0; i != n; ++i) {
+        for (size_t j = i; j != n; ++j) {
+            tmp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = tmp;
+        }
+    }
+    for (size_t i = 0; i != n; ++i) {
+        for (size_t j = 0; j != n / 2; ++j) {
+            tmp = matrix[i][j];
+            matrix[i][j] = matrix[i][n - j - 1];
+            matrix[i][n - j - 1] = tmp;
+        }
+    }
+#endif
+}
+
+void testRotateMatrix()
+{
+    vector<vector<int>> matrix = {
+    {11,12,13,21},
+    {14,15,16,24},
+    {17,18,19,27},
+    {21,22,23,21}
+    };
+
+    displayMatrix(matrix);
+    cout << "=============" << endl;
+    rotate(matrix);
+    displayMatrix(matrix);
+}
+
 int main()
 {
 	//testRemoveDuplicates();
+    //testMaxProfit();
 	//testRotate();
 	//testContainsDuplicate();
 	//testSingleNumber();
 	//testIntersect();
 	//testPlusOne();
-	testMoveZeroes();
+	//testMoveZeroes();
+    testRotateMatrix();
 
 	system("pause");
 	return 0;

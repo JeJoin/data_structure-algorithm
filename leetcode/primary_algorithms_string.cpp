@@ -79,7 +79,6 @@ void testIsAnagram()
 
 /*给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写
 说明：本题中，我们将空字符串定义为有效的回文串。*/
-
 bool isLetterOrNum(char c)
 {
 	if ((c >= 'A' && c <= 'Z')
@@ -197,14 +196,13 @@ int strStr(string haystack, string needle)
 #if 0
 	return haystack.find(needle);
 #else
+    int j;
     int hlen = haystack.length(), nlen = needle.length();
     for (int i = 0; i <= hlen - nlen; ++i) {
-        int j;
         for (j = 0; j < nlen; ++j) {
             if (haystack[i + j] != needle[j]) {
                 break;
             }
-
         }
         if (j == nlen) {
             return i;
