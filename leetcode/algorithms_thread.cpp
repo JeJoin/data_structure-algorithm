@@ -4,6 +4,7 @@
 #include <thread>
 #include <functional>
 using namespace std;
+#if ALGORITHMS_THREAD
 class FooBar
 {
 private:
@@ -57,3 +58,4 @@ int main()
     system("pause");
     return 0;
 }
+#endif

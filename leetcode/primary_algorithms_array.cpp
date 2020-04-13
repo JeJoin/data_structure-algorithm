@@ -361,6 +361,30 @@ void testRotateMatrix()
     displayMatrix(matrix);
 }
 
+/*给定一个整数类型的数组 nums，请编写一个能够返回数组“中心索引”的方法。
+我们是这样定义数组中心索引的：数组中心索引的左侧所有元素相加的和等于右侧所有元素相加的和。
+如果数组不存在中心索引，那么我们应该返回 -1。如果数组有多个中心索引，那么我们应该返回最靠近左边的那一个。*/
+int pivotIndex(vector<int>& nums)
+{
+    int sum = 0, ln = 0;
+    for (auto i : nums) {
+        sum += i;
+    }
+    for (int i = 0; i < nums.size(); ++i) {
+        if (sum - nums[i] - ln == ln) {
+            return i;
+        }
+        ln += nums[i];
+    }
+    return -1;
+}
+
+void testPivotIndex()
+{
+    vector<int> nums = { 7, 3, 6, 5, 6, 9, 1};
+    cout << __FUNCTION__ << pivotIndex(nums) << endl;
+}
+
 int main()
 {
 	//testRemoveDuplicates();
@@ -371,7 +395,8 @@ int main()
 	//testIntersect();
 	//testPlusOne();
 	//testMoveZeroes();
-    testRotateMatrix();
+    //testRotateMatrix();
+    testPivotIndex();
 
 	system("pause");
 	return 0;
