@@ -36,10 +36,9 @@ namespace sort {
     template <typename T>
     void InsertSort(T* arr, int n) {
         for (int i = 1; i < n; i++) {
-
             int j;
             T tmp = arr[i];
-            for (j = i; j > 0 && arr[j - 1] > tmp; j--) {
+            for (j = i; j > 0 && arr[j - 1] > tmp; --j) {
                 arr[j] = arr[j - 1];
             }
             arr[j] = tmp;
@@ -49,7 +48,6 @@ namespace sort {
     template <typename T>
     void ShellSort(T* arr, int n) {
         for (int gap = n / 2; gap > 0; gap /= 2) {
-
             for (int i = gap; i < n; i++) {
                 int j;
                 T tmp = arr[i];
@@ -63,25 +61,22 @@ namespace sort {
 
     template<typename T>
     void ShellSort1(T arr[], int n) {
-
         int h = 1;
-        while (h < n / 3)
+        while (h < n / 3) {
             h = 3 * h + 1;
+        }
         // 计算 increment sequence: 1, 4, 13, 40, 121, 364, 1093...
-
         while (h >= 1) {
-
             // h-sort the array
             for (int i = h; i < n; i++) {
-
+                int j;
                 // 对 arr[i], arr[i-h], arr[i-2*h], arr[i-3*h]... 使用插入排序
                 T e = arr[i];
-                int j;
-                for (j = i; j >= h && e < arr[j - h]; j -= h)
+                for (j = i; j >= h && e < arr[j - h]; j -= h) {
                     arr[j] = arr[j - h];
+                }
                 arr[j] = e;
             }
-
             h /= 3;
         }
     }
@@ -226,8 +221,7 @@ namespace sort {
 
     // 2路快速排序：
     // 优化2: 对于存在大量重复元素的情况进行优化
-    // 当存在大量重复元素的时候,算法也会退化成O(n^2)级别的算法
-    // 缺点：
+    // 缺点：当存在大量重复元素的时候,算法也会退化成O(n^2)级别的算法
     template <typename T>
     int _Partition2(T* arr, int l, int r) {
         swap(arr[l], arr[(rand() % (r - l + 1)) + l]);
@@ -235,8 +229,6 @@ namespace sort {
         T tmp = arr[l];
         // arr[l] >= arr[l, i); arr[l] <= arr(j, r]
         int i = l + 1, j = r;
-
-
         while (true) {
             while (i <= r && arr[i] < tmp) {
                 i++;
@@ -244,14 +236,11 @@ namespace sort {
             while (j >= l + 1 && arr[j] > tmp) {
                 j--;
             }
-
             if (j < i) {
                 break;
             }
-
             swap(arr[i++], arr[j--]);
         }
-
         swap(arr[l], arr[j]);
         return j;
     }
@@ -282,15 +271,12 @@ namespace sort {
             InsertSort(arr + l, r - l + 1);
             return;
         }
-
         swap(arr[l], arr[(rand() % (r - l + 1)) + l]);
 
         int tmp = arr[l];
-
         int lt = l;     // arr[l...lt] < tmp
         int gt = r + 1; // arr[gt...r] > tmp
         int i = l + 1;  // arr[lt+1...i-1] == tmp
-
         while (gt > i) {
             if (arr[i] < tmp) {
                 swap(arr[++lt], arr[i++]);
@@ -300,9 +286,7 @@ namespace sort {
                 i++;
             }
         }
-
         swap(arr[lt], arr[l]);
-
         _QuickSort3(arr, l, lt - 1);
         _QuickSort3(arr, gt, r);
     }
@@ -340,11 +324,9 @@ namespace sort {
             if (p + 1 < n && arr[p] < arr[p + 1]) {
                 p++;
             }
-
             if (arr[position] >= arr[p]) {
                 break;
             }
-
             std::swap(arr[position], arr[p]);
             position = p;
         }
@@ -356,7 +338,6 @@ namespace sort {
         for (int i = (n - 1) / 2; i >= 0; i--) {
             _ShifyDown(arr, n, i);
         }
-
         // 堆只剩1个时不需交换
         for (int i = n - 1; i > 0; i--) {
             std::swap(arr[0], arr[i]);

@@ -13,14 +13,11 @@ namespace search {
 
     template <typename T>
     int BinarySearch(T* arr, int n, T target) {
-
         // arr[l...r]
         int r = n - 1, l = 0;
-
         // Òç³ö
         //int mid = (r + l) / 2;
         int mid = l + (r - l) / 2;
-
         while (l <= r) {
             if (arr[mid] == target) {
                 return mid;
@@ -44,11 +41,9 @@ namespace search {
         // Òç³ö
         //int mid = (r + l) / 2;
         int mid = l + (r - l) / 2;
-
         if (arr[mid] == target) {
             return mid;
         }
-
         if (arr[mid] > target) {
             return BinarySearch(arr, l, mid - 1, target);
         } else if(arr[ mid] <target) {

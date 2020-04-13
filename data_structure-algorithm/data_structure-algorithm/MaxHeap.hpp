@@ -1,3 +1,5 @@
+#ifndef MAX_HEAP_H
+#define MAX_HEAP_H
 #include <common.h>
 
 template <typename T>
@@ -175,10 +177,9 @@ private:
         line[offset_right + 0] = '\\';
     }
 
-
-
 private:
     T * m_elements;
     int m_size;
     int m_capacity;
 };
+#endif // !MAX_HEAP_H

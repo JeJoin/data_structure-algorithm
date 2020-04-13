@@ -1,6 +1,4 @@
-// data_structure-algorithm.cpp : 定义控制台应用程序的入口点。
-//
-
+#include <map>
 #include "sort.h"
 #include "common.h"
 #include "search.h"
@@ -11,68 +9,62 @@
 #include "3rd/SequenceST.h"
 
 void testSort() {
-    int n = 2000000;
-    int *arr = common::GetRandomArr(n, 0, 100);
-    int *arr1 = common::CopyArr(arr, n);
-    int *arr2 = common::CopyArr(arr, n);
-    int *arr3 = common::CopyArr(arr, n);
-    int *arr4 = common::CopyArr(arr, n);
+    int n = 20000;
+    int *arr = common::GetRandomArr(n, 0, 20000);
+    std::map<int, int *> m;
+    for (int i = 0; i < 12; ++i) {
+        m[i] = common::CopyArr(arr, n);
+    }
 
     cout << "================= Sort Random Array =====================" << endl;
-    //common::TestSort("BubbleSot", sort::BubbleSot, arr, n);
-    //common::TestSort("SeletctionSort", sort::SelectSort, arr1, n);
-    //common::TestSort("InsertSort", sort::InsertSort, arr2, n);
-
-    //common::TestSort("ShellSort", sort::ShellSort, arr, n);
-    //common::TestSort("ShellSort1", sort::ShellSort1, arr1, n);
-
-    common::TestSort("MergeSort", sort::MergeSort, arr, n);
-    //common::TestSort("QuickSort", sort::QuickSort, arr1, n);
-    //common::TestSort("QuickSort2", sort::QuickSort2, arr2, n);
-    common::TestSort("QuickSort3", sort::QuickSort3, arr3, n);
-    common::TestSort("HeapSort", sort::HeapSort, arr4, n);
-    common::TestSort("HeapSort1", sort::HeapSort1, arr2, n);
-    common::TestSort("HeapSort2", sort::HeapSort2, arr1, n);
+    //common::TestSort("BubbleSot", sort::BubbleSort, arr, n);
+    common::TestSort("SeletctionSort", sort::SelectSort, m[1], n);
+    common::TestSort("InsertSort", sort::InsertSort, m[2], n);
+    common::TestSort("ShellSort", sort::ShellSort, m[3], n);
+    common::TestSort("ShellSort1", sort::ShellSort1, m[4], n);
+    common::TestSort("MergeSort", sort::MergeSort, m[5], n);
+    common::TestSort("QuickSort", sort::QuickSort, m[6], n);
+    common::TestSort("QuickSort2", sort::QuickSort2, m[7], n);
+    common::TestSort("QuickSort3", sort::QuickSort3, m[8], n);
+    common::TestSort("HeapSort", sort::HeapSort, m[9], n);
+    common::TestSort("HeapSort1", sort::HeapSort1, m[10], n);
+    common::TestSort("HeapSort2", sort::HeapSort2, m[11], n);
 
     delete[] arr;
-    delete[] arr1;
-    delete[] arr2;
-    delete[] arr3;
-    delete[] arr4;
+    for (auto & itr = m.begin(); itr != m.end(); ++itr) {
+        delete[] (itr->second);
+    }
+    m.clear();
 
     cout << "================= Sort Near Order Array =====================" << endl;
-
     arr = common::CreateNearOrderArr(n, 10);
-    arr1 = common::CopyArr(arr, n);
-    arr2 = common::CopyArr(arr, n);
-    arr3 = common::CopyArr(arr, n);
-    arr4 = common::CopyArr(arr, n);
+    for (int i = 0; i < 10; ++i) {
+        m[i] = common::CopyArr(arr, n);
+    }
 
     common::TestSort("MergeSort", sort::MergeSort, arr, n);
-    //common::TestSort("QuickSort", sort::QuickSort, arr1, n);
-    //common::TestSort("QuickSort2", sort::QuickSort2, arr2, n);
-    common::TestSort("QuickSort3", sort::QuickSort3, arr3, n);
-    common::TestSort("HeapSort", sort::HeapSort, arr4, n);
-    common::TestSort("HeapSort1", sort::HeapSort1, arr2, n);
-    common::TestSort("HeapSort2", sort::HeapSort2, arr1, n);
+    common::TestSort("QuickSort", sort::QuickSort, m[1], n);
+    common::TestSort("QuickSort2", sort::QuickSort2, m[2], n);
+    common::TestSort("QuickSort3", sort::QuickSort3, m[3], n);
+    common::TestSort("HeapSort", sort::HeapSort, m[4], n);
+    common::TestSort("HeapSort1", sort::HeapSort1, m[5], n);
+    common::TestSort("HeapSort2", sort::HeapSort2, m[6], n);
 
     delete[] arr;
-    delete[] arr1;
-    delete[] arr2;
-    delete[] arr3;
-    delete[] arr4;
+    for (auto & itr = m.begin(); itr != m.end(); ++itr) {
+        delete[] (itr->second);
+    }
+    m.clear();
 }
 
 void testMaxHeap() {
     MaxHeap<int> heap(100);
 
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     for (int i = 0; i < 15; i++) {
         heap.insert(rand() % 100);
     }
-
     heap.testPrint();
-
     cout << "extract max: " ;
     while (!heap.isEmpty()) {
         cout << heap.extractMax() << " ";
@@ -82,7 +74,7 @@ void testMaxHeap() {
 void testMaxIndexHeap() {
     MaxIndexHeap<int> heap(100);
 
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     cout << "============ before change =============" << endl;
     for (int i = 0; i < 15; i++) {
         heap.insert(i, rand() % 100);
@@ -104,7 +96,7 @@ void testMaxIndexHeap() {
 }
 
 void testBinarySearch() {
-    int n = 10;
+    int n = 10000000;
     int search = 5;
     int* arr = common::GetRandomArr(n, 0, n);
     sort::QuickSort3(arr, n);
@@ -118,7 +110,6 @@ void testBST() {
     string filename = "MoonAndSixpence.txt";
     vector<string> words;
     if (FileOps::readFile(filename, words)) {
-
         cout << "There are totally " << words.size() << " words in " << filename << endl;
         cout << endl;
         // test BST
@@ -127,10 +118,11 @@ void testBST() {
         BST<string, int> bst = BST<string, int>();
         for (vector<string>::iterator iter = words.begin(); iter != words.end(); ++iter) {
             int *res = bst.search(*iter);
-            if (res == NULL)
+            if (res == NULL) {
                 bst.insert(*iter, 1);
-            else
+            } else {
                 (*res)++;
+            }
         }
 
         if (!bst.contain(target)) {
@@ -141,26 +133,22 @@ void testBST() {
         cout << "[ " << target << " ]: " << *bst.search(target) << endl;
         time_t endTime = clock();
         cout << "BST , time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " s." << endl;
-
         cout << endl;
-
 
         // test SST
         startTime = clock();
         SequenceST<string, int> sst = SequenceST<string, int>();
         for (vector<string>::iterator iter = words.begin(); iter != words.end(); iter++) {
             int *res = sst.search(*iter);
-            if (res == NULL)
+            if (res == NULL) {
                 sst.insert(*iter, 1);
-            else
+            } else {
                 (*res)++;
+            }
         }
-
         cout << "[ " << target << " ]: " << *sst.search(target) << endl;
-
         endTime = clock();
         cout << "SST , time: " << double(endTime - startTime) / CLOCKS_PER_SEC << " s." << endl;
-
 
         // sort
        // =============================== sort =================================

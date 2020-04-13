@@ -9,7 +9,7 @@ namespace FileOps {
         for (int i = start; i < s.length(); i++)
             if (isalpha(s[i]))
                 return i;
-        return s.length();
+        return (int)s.length();
     }
 
     string lowerS(const string& s) {

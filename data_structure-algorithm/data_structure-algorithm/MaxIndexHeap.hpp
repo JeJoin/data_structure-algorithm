@@ -6,7 +6,6 @@
  * 堆索引从0开始
  * 动态调整退数组的大小
  */
-
 template <typename T>
 class MaxIndexHeap {
 public:
@@ -32,6 +31,7 @@ public:
             m_indexes[i + 1] = i + 1;
         }
         m_size = n;
+
 
         for (int i = m_size / 2; i >= 1; i--) {
             shiftDown(i);
@@ -216,9 +216,6 @@ private:
         line[offset_left + 1] = '/';
         line[offset_right + 0] = '\\';
     }
-
-
-
 private:
     T * m_elements;
     T * m_indexes;  // 存放者elements中数据的下标

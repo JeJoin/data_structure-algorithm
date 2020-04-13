@@ -19,7 +19,7 @@ int* GetRandomArr(int n, int rangeL, int rangeR)
 {
     assert(rangeL <= rangeR);
     int *arr = new int[n];
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     for(int i = 0; i < n; i++) {
         arr[i] = rand() % (rangeR - rangeL + 1) + rangeL;
     }
@@ -77,7 +77,7 @@ int* CreateNearOrderArr(int n, int revers)
     for(int i = 0; i < n; i++) {
         arr[i] = i;
     }
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     for(int j = 0; j < revers; j++) {
        int x = rand()%n;
        int y = rand()%n;
